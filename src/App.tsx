@@ -1,13 +1,17 @@
 import React from "react";
 import "./App.css";
+import { store } from "./store/store";
+import { Provider } from "react-redux";
 import { Index as NavBar } from "./NavBar/index";
-import { Index as Fabric } from "./depiction/rectangle";
+import { Index as Borad } from "./DrawingBorad/index";
 function App() {
   return (
-    <div className="App">
-      <Fabric></Fabric>
-      <NavBar></NavBar>
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <Borad></Borad>
+        <NavBar></NavBar>
+      </div>
+    </Provider>
   );
 }
 

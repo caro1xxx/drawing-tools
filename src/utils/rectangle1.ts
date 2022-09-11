@@ -6,8 +6,8 @@ export const Rectangle = (height:number = 100,width:number=100,canvsEl: fabric.C
   const Rectangle = new fabric.Rect({
     top: 30,
     left: 30,
-    width: 100,
-    height: 60,
+    width: width,
+    height: height,
     fill: "white",
   });
 

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { useAppSelector, useAppDispatch } from "../hooks";
+import { useAppDispatch } from "../hooks";
+import { create } from "../store/counterSlice";
 type Props = {};
 
 const Wapper = styled.div`
@@ -12,7 +13,6 @@ const Wapper = styled.div`
   z-index: 100;
 `;
 export const Index = (props: Props) => {
-  const count = useAppSelector((state) => state.counter.value);
   const dispatch = useAppDispatch();
-  return <Wapper>{count}</Wapper>;
+  return <Wapper onClick={() => dispatch(create())}>1</Wapper>;
 };

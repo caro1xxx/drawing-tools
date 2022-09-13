@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useAppDispatch } from "../hooks";
-import { create } from "../store/counterSlice";
+import { push } from "../store/ItemSlice";
 type Props = {};
 
 const Wapper = styled.div`
@@ -50,10 +50,10 @@ export const Index = (props: Props) => {
   const dispatch = useAppDispatch();
   return (
     <Wapper>
-      <Rectangle onClick={() => dispatch(create("Rectangle"))}></Rectangle>
-      <Rriangular onClick={() => dispatch(create("Rriangular"))}></Rriangular>
-      <Circle onClick={() => dispatch(create("Circle"))}></Circle>
-      <Line onClick={() => dispatch(create("Line"))}></Line>
+      <Rectangle onClick={() => dispatch(push("Rectangle"))}></Rectangle>
+      <Rriangular onClick={() => dispatch(push("Triangular"))}></Rriangular>
+      <Circle onClick={() => dispatch(push("Circle"))}></Circle>
+      <Line onClick={() => dispatch(push("Line"))}></Line>
     </Wapper>
   );
 };

@@ -73,3 +73,42 @@ export const CircleWapper = styled.div`
   margin-right: 10px;
   border-radius: 100px;
 `;
+
+export const TriangularWapper = styled.div`
+  visibility: visible;
+  /* border: 1px #000 dashed; */
+  width: inherit;
+  height: inherit;
+  margin-right: 10px;
+`;
+
+export const TriangularLeftEdge = styled.div`
+  background-color: black;
+  position: absolute;
+  height: 100px;
+  left: 29px;
+  bottom: -2px;
+  width: 1px;
+  transform: rotate(30deg);
+`;
+
+export const TriangularRightEdge = styled.div`
+  background-color: black;
+  position: absolute;
+  height: 100px;
+  right: 29px;
+  bottom: -2px;
+  width: 1px;
+  transform: rotate(-30deg);
+`;
+
+export const TriangulaBottomEdge = styled.div`
+  background-color: black;
+  position: absolute;
+  height: 100px;
+  bottom: -45px;
+  width: 1px;
+  left: 54px;
+
+  transform: rotate(90deg);
+`;

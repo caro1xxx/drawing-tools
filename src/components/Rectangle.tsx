@@ -1,19 +1,8 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import { contrlPointDown, zoom } from "../utils/EventHandler";
+import { drag } from "../utils/EventHandler";
 type Props = {};
 
-const Rotat = styled.div`
-  cursor: pointer;
-  cursor: hand;
-  position: absolute;
-  height: 20px;
-  width: 100%;
-  top: -10px;
-  left: 48%;
-  right: 48%;
-  display: inline;
-`;
 const ZoomLeftyTop = styled.div`
   cursor: nw-resize;
   position: absolute;
@@ -59,106 +48,112 @@ const ZoomRightBottom = styled.div`
   border-top-style: none;
 `;
 
+const Selected = styled.div`
+  position: relative;
+  border: 2px #056de8 solid;
+  width: 100px;
+  height: 100px;
+  visibility: hidden;
+  padding: 4px 6px 6px 4px;
+`;
+
 const Wapper = styled.div`
   visibility: visible;
   border: 1px #000 dashed;
-  width: 100px;
-  height: 100px;
-  margin: 5px;
-  position: absolute;
+  width: 100%;
+  height: 100%;
+`;
+
+const Contrl = styled.div`
+  visibility: inherit;
 `;
 
 export const Rectangle = (props: Props) => {
+  const SelectElement = useRef<HTMLDivElement>(null);
+  const WapperElement = useRef<HTMLDivElement>(null);
+  const ContrlElement = useRef<HTMLDivElement>(null);
+
   const isDown = useRef(false);
-  const isZoomDown = useRef(false);
   const Pos = useRef({
     top: 0, // 元素的坐标
     left: 0,
     cX: 0, // 鼠标的坐标
     cY: 0,
   });
-
-  const [WapperStyle, setWapperStyle] = useState({
+  const [GlobeStyle, setGlobeStyle] = useState({
     height: 100,
     width: 100,
-    left: 0,
     top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   });
-  const contrlPoint = useRef<HTMLDivElement>(null);
-  const WapperElement = useRef<HTMLDivElement>(null);
-  const el = useRef<HTMLDivElement>(null);
 
   return (
-    <div
-      style={{ position: "absolute" }}
-      ref={WapperElement}
-      onClick={(event) => {
-        contrlPointDown("select", contrlPoint, event, isDown, Pos);
-      }}
-      onMouseDown={(event) => {
-        contrlPointDown("down", WapperElement, event, isDown, Pos);
+    <Selected
+      onMouseLeave={(event) => {
+        drag(
+          "leave",
+          SelectElement,
+          event,
+          isDown,
+          Pos,
+          setGlobeStyle,
+          GlobeStyle
+        );
       }}
       onMouseUp={(event) => {
-        contrlPointDown("up", WapperElement, event, isDown, Pos);
+        drag(
+          "up",
+          SelectElement,
+          event,
+          isDown,
+          Pos,
+          setGlobeStyle,
+          GlobeStyle
+        );
       }}
-      onMouseMove={(event) => {
-        contrlPointDown("move", WapperElement, event, isDown, Pos);
+      style={{
+        height: GlobeStyle.height + "px",
+        width: GlobeStyle.width + "px",
+        top: GlobeStyle.top + "px",
+        left: GlobeStyle.left + "px",
+        right: GlobeStyle.right + "px",
+        bottom: GlobeStyle.bottom + "px",
       }}
-      onMouseLeave={(event) => {
-        contrlPointDown("leave", contrlPoint, event, isDown, Pos);
-      }}
+      ref={SelectElement}
     >
       <Wapper
-        style={{
-          width: `${WapperStyle.height}px`,
-          height: `${WapperStyle.width}px`,
-          // left: `${WapperStyle.left}px`,
-          // top: `${WapperStyle.top}px`,
+        onMouseDown={(event) => {
+          drag(
+            "down",
+            SelectElement,
+            event,
+            isDown,
+            Pos,
+            setGlobeStyle,
+            GlobeStyle
+          );
         }}
-        ref={el}
-      >
-        {WapperStyle.height}
-      </Wapper>
-      <div ref={contrlPoint} style={{ visibility: "hidden" }}>
-        <ZoomLeftyTop
-          onMouseDown={(event) => {
-            zoom(
-              "down",
-              contrlPoint,
-              event,
-              isZoomDown,
-              Pos,
-              setWapperStyle,
-              WapperStyle
-            );
-          }}
-          onMouseUp={(event) => {
-            zoom(
-              "up",
-              contrlPoint,
-              event,
-              isZoomDown,
-              Pos,
-              setWapperStyle,
-              WapperStyle
-            );
-          }}
-          onMouseMove={(event) => {
-            zoom(
-              "LeftyTop",
-              el,
-              event,
-              isZoomDown,
-              Pos,
-              setWapperStyle,
-              WapperStyle
-            );
-          }}
-        ></ZoomLeftyTop>
+        onMouseMove={(event) => {
+          drag(
+            "move",
+            SelectElement,
+            event,
+            isDown,
+            Pos,
+            setGlobeStyle,
+            GlobeStyle
+          );
+        }}
+        ref={WapperElement}
+      ></Wapper>
+      <Contrl ref={ContrlElement}>
+        <ZoomLeftyTop></ZoomLeftyTop>
         <ZoomLeftBottom></ZoomLeftBottom>
         <ZoomRightTop></ZoomRightTop>
         <ZoomRightBottom></ZoomRightBottom>
-      </div>
-    </div>
+      </Contrl>
+    </Selected>
   );
 };

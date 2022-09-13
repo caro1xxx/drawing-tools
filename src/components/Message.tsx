@@ -1,5 +1,6 @@
-import React from "react";
+import React, { Fragment, useEffect } from "react";
 import styled from "styled-components";
+import { change } from "../store/notify";
 import { useAppSelector, useAppDispatch } from "../hooks";
 type Props = {};
 const Wapper = styled.div`
@@ -29,7 +30,12 @@ const Wapper = styled.div`
 
 export const Message = (props: Props) => {
   const notice = useAppSelector((state) => state.notice.value);
-
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(change(""));
+    }, 3000);
+  }, []);
   return (
     <Wapper>
       <svg

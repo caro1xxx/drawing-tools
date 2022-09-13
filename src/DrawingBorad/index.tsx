@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useAppSelector, useAppDispatch } from "../hooks";
+import { useAppSelector } from "../hooks";
 import { Rectangle } from "../components/Rectangle";
 import { Circle } from "../components/Circle";
 import { Triangular } from "../components/Triangular";
@@ -8,10 +8,11 @@ type Props = {};
 
 export const Index = (props: Props) => {
   const current = useAppSelector((state) => state.item.value);
+  const notice = useAppSelector((state) => state.notice.value);
 
   return (
     <div>
-      <Message></Message>
+      {notice === "" ? <></> : <Message></Message>}
       {current.map((item, index) => {
         switch (item.type) {
           case "Rectangle":

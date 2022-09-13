@@ -7,7 +7,6 @@ import {
   ZoomLeftBottom,
   ZoomRightTop,
   ZoomRightBottom,
-  Rotating,
 } from "../style/GobelStyle";
 import { drag, zoom } from "../utils/EventHandler";
 type Props = {};

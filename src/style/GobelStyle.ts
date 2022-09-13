@@ -65,13 +65,11 @@ export const Contrl = styled.div`
   visibility: inherit;
 `;
 
-export const Rotating = styled.div`
-  height: 100px;
+export const CircleWapper = styled.div`
+  visibility: visible;
+  border: 1px #000 dashed;
   width: inherit;
-  border-radius: 5px;
-
-  position: absolute;
-  top: -80px;
-  text-align: center;
-  padding-top: 20px;
+  height: inherit;
+  margin-right: 10px;
+  border-radius: 100px;
 `;

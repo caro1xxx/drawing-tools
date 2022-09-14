@@ -82,7 +82,7 @@ export const TriangularWapper = styled.div`
   margin-right: 10px;
 `;
 
-export const TriangularLeftEdge = styled.div`
+export const TriangularLeftEdge = styled.hr`
   background-color: black;
   position: absolute;
   height: 100px;
@@ -92,7 +92,7 @@ export const TriangularLeftEdge = styled.div`
   transform: rotate(30deg);
 `;
 
-export const TriangularRightEdge = styled.div`
+export const TriangularRightEdge = styled.hr`
   background-color: black;
   position: absolute;
   height: 100px;
@@ -102,7 +102,7 @@ export const TriangularRightEdge = styled.div`
   transform: rotate(-30deg);
 `;
 
-export const TriangulaBottomEdge = styled.div`
+export const TriangulaBottomEdge = styled.hr`
   background-color: black;
   position: absolute;
   height: 100px;
@@ -111,4 +111,31 @@ export const TriangulaBottomEdge = styled.div`
   left: 54px;
 
   transform: rotate(90deg);
+`;
+
+export const LineWapper = styled.div`
+  visibility: visible;
+  /* background-color: black; */
+  height: 100%;
+  width: 100%;
+  border-bottom: 2px #000 dashed;
+`;
+
+export const LineSelected = styled.div`
+  position: absolute;
+  border: 2px #056de8 solid;
+  width: 100px;
+  height: 5px;
+  visibility: hidden;
+  padding: 4px 6px 6px 4px;
+`;
+
+export const Text = styled.textarea`
+  visibility: visible;
+  border: none;
+  outline: none;
+  width: inherit;
+  height: inherit;
+  margin-right: 10px;
+  /* background-color: rgba(255, 255, 255, 0); */
 `;

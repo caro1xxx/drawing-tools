@@ -1,7 +1,11 @@
+import React from "react";
+
 export const drag = (
   type: string,
   element: React.RefObject<HTMLDivElement> | null,
-  event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  event:
+    | React.MouseEvent<HTMLDivElement, MouseEvent>
+    | React.MouseEvent<HTMLTextAreaElement, MouseEvent>,
   isDown: React.MutableRefObject<boolean>,
   Pos: React.MutableRefObject<{
     top: number;

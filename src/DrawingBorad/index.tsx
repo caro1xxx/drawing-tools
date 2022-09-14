@@ -4,6 +4,8 @@ import { Rectangle } from "../components/Rectangle";
 import { Circle } from "../components/Circle";
 import { Triangular } from "../components/Triangular";
 import { Message } from "../components/Message";
+import { Line } from "../components/Line";
+import { CreateText as Text } from "../components/CreateText";
 type Props = {};
 
 export const Index = (props: Props) => {
@@ -21,6 +23,10 @@ export const Index = (props: Props) => {
             return <Circle key={item.id}></Circle>;
           case "Triangular":
             return <Triangular key={item.id}></Triangular>;
+          case "Line":
+            return <Line key={item.id}></Line>;
+          case "Text":
+            return <Text key={item.id}></Text>;
         }
       })}
     </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { nanoid } from "nanoid";
 import { useAppSelector } from "../hooks";
-import { Rectangle } from "../components/Rectangle";
+import Rectangle from "../components/Rectangle";
 import { Circle } from "../components/Circle";
 import { Triangular } from "../components/Triangular";
 import { Message } from "../components/Message";
@@ -21,15 +21,22 @@ export const Index = (props: Props) => {
       {current.map((item, index) => {
         switch (item.type) {
           case "Rectangle":
-            return <Rectangle key={item.id}></Rectangle>;
+            return (
+              <Rectangle borderColor={item.selection} key={item.id}></Rectangle>
+            );
           case "Circle":
-            return <Circle key={item.id}></Circle>;
+            return <Circle borderColor={item.selection} key={item.id}></Circle>;
           case "Triangular":
-            return <Triangular key={item.id}></Triangular>;
+            return (
+              <Triangular
+                borderColor={item.selection}
+                key={item.id}
+              ></Triangular>
+            );
           case "Line":
-            return <Line key={item.id}></Line>;
+            return <Line borderColor={item.selection} key={item.id}></Line>;
           case "Text":
-            return <Text key={item.id}></Text>;
+            return <Text borderColor={item.selection} key={item.id}></Text>;
         }
       })}
       {cursor.navbarShowCursor ? <Cursor></Cursor> : <div>销毁</div>}

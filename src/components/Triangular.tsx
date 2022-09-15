@@ -14,12 +14,15 @@ import {
   TriangulaBottomEdge,
 } from "../style/GobelStyle";
 import { drag } from "../utils/EventHandler";
-type Props = {};
+import { changePos } from "../store/ItemSlice";
+type Props = {
+  borderColor: string;
+};
 
 export const Triangular = (props: Props) => {
   const SelectElement = useRef<HTMLDivElement>(null);
   const WapperElement = useRef<HTMLDivElement>(null);
-
+  const item = useAppSelector((state) => state.item.value);
   const isDown = useRef(false);
   const Pos = useRef({
     top: 0,
@@ -28,10 +31,11 @@ export const Triangular = (props: Props) => {
     cY: 0,
   });
   const [GlobeStyle, setGlobeStyle] = useState({
-    height: 100,
-    width: 100,
+    height: item[item.length - 1].height,
+    width: item[item.length - 1].width,
     top: 0,
     left: 0,
+    storeId: item[item.length - 1].id,
   });
   const notice = useAppSelector((state) => state.notice.value);
   const dispatch = useAppDispatch();
@@ -73,11 +77,6 @@ export const Triangular = (props: Props) => {
       ref={SelectElement}
     >
       <TriangularWapper
-        /*
-        
-          用于控制圆角度数
-        
-        */
         onMouseDown={(event) => {
           drag(
             "down",
@@ -102,9 +101,15 @@ export const Triangular = (props: Props) => {
         }}
         ref={WapperElement}
       >
-        <TriangularLeftEdge></TriangularLeftEdge>
-        <TriangularRightEdge></TriangularRightEdge>
-        <TriangulaBottomEdge></TriangulaBottomEdge>
+        <TriangularLeftEdge
+          style={{ backgroundColor: props.borderColor }}
+        ></TriangularLeftEdge>
+        <TriangularRightEdge
+          style={{ backgroundColor: props.borderColor }}
+        ></TriangularRightEdge>
+        <TriangulaBottomEdge
+          style={{ backgroundColor: props.borderColor }}
+        ></TriangulaBottomEdge>
       </TriangularWapper>
       <Contrl onMouseDown={prevent}>
         <ZoomLeftyTop></ZoomLeftyTop>

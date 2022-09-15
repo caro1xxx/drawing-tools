@@ -63,12 +63,19 @@ export const Index = (props: Props) => {
   const navbarShowCursor = useAppSelector(
     (state) => state.cursor.navbarShowCursor
   );
+
+  const click = (type: string) => {
+    if (navbarShowCursor !== true) {
+      dispatch(push(type));
+    }
+  };
+
   return (
     <Wapper>
-      <Rectangle onClick={() => dispatch(push("Rectangle"))}></Rectangle>
-      <Rriangular onClick={() => dispatch(push("Triangular"))}></Rriangular>
-      <Circle onClick={() => dispatch(push("Circle"))}></Circle>
-      <Line onClick={() => dispatch(push("Line"))}>
+      <Rectangle onClick={() => click("Rectangle")}></Rectangle>
+      <Rriangular onClick={() => click("Triangular")}></Rriangular>
+      <Circle onClick={() => click("Circle")}></Circle>
+      <Line onClick={() => click("Line")}>
         <div
           style={{
             display: "inline-block",

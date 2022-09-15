@@ -9,13 +9,18 @@ import {
   ZoomRightBottom,
 } from "../style/GobelStyle";
 import { drag, zoom } from "../utils/EventHandler";
-type Props = {};
+import { useAppSelector, useAppDispatch } from "../hooks";
+import { changePos } from "../store/ItemSlice";
+type Props = {
+  borderColor: string;
+};
 
 export const Line = (props: Props) => {
   const SelectElement = useRef<HTMLDivElement>(null);
   const WapperElement = useRef<HTMLDivElement>(null);
   const ContrlElement = useRef<HTMLDivElement>(null);
-
+  const item = useAppSelector((state) => state.item.value);
+  const dispatch = useAppDispatch();
   const isDown = useRef(false);
   const Pos = useRef({
     top: 0,
@@ -24,10 +29,11 @@ export const Line = (props: Props) => {
     cY: 0,
   });
   const [GlobeStyle, setGlobeStyle] = useState({
-    height: 5,
-    width: 100,
+    height: item[item.length - 1].height,
+    width: item[item.length - 1].width,
     top: 0,
     left: 0,
+    storeId: item[item.length - 1].id,
   });
 
   return (
@@ -42,6 +48,7 @@ export const Line = (props: Props) => {
           setGlobeStyle,
           GlobeStyle
         );
+        dispatch(changePos(GlobeStyle));
       }}
       onMouseUp={(event) => {
         drag(
@@ -63,6 +70,7 @@ export const Line = (props: Props) => {
       ref={SelectElement}
     >
       <LineWapper
+        style={{ borderBottom: `1px ${props.borderColor} dashed` }}
         onMouseDown={(event) => {
           drag(
             "down",

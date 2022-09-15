@@ -1,11 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { changeCursorState, changeNavBarCursor } from "../store/Cursor";
-
+import { changeCursorState } from "../store/Cursor";
+import { changeSelection } from "../store/ItemSlice";
+import {
+  getCurrentPos,
+  CalculateShapeWithinSelection,
+  currentPosDiminishPrevPos,
+} from "../utils/MouseCursor";
 type Props = {};
 
 export const CreateMouseCursor = (props: Props) => {
   const cursor = useAppSelector((state) => state.cursor);
+  const item = useAppSelector((state) => state.item.value);
   const dispatch = useAppDispatch();
 
   const isDown = useRef(false);
@@ -34,51 +40,66 @@ export const CreateMouseCursor = (props: Props) => {
     document.onmousedown = function (event) {
       // 改变store内状态
       dispatch(changeCursorState(true));
-      setAreaStyle({
-        height: AreaStyle.height,
-        width: AreaStyle.width,
-        top: event.clientY,
-        left: event.clientX,
+      getCurrentPos(event).then((value) => {
+        setAreaStyle({
+          height: AreaStyle.height,
+          width: AreaStyle.width,
+          top: value.y,
+          left: value.x,
+        });
+        AreaStyleRef.current = {
+          height: AreaStyleRef.current.height,
+          width: AreaStyleRef.current.width,
+          top: value.y,
+          left: value.x,
+        };
+        //save prevpos
+        prevPos.current = {
+          x: event.clientX,
+          y: event.clientY,
+        };
+        isDown.current = true;
       });
-      AreaStyleRef.current = {
-        height: AreaStyleRef.current.height,
-        width: AreaStyleRef.current.width,
-        top: event.clientY,
-        left: event.clientX,
-      };
-      //save prevpos
-      prevPos.current = {
-        x: event.clientX,
-        y: event.clientY,
-      };
-      isDown.current = true;
     };
 
-    // 鼠标开始移动
+    // 鼠标移动
     document.onmousemove = function (event) {
       if (!isDown.current) return;
-      const currentX = event.clientX - prevPos.current.x;
-      const currentY = event.clientY - prevPos.current.y;
-      setAreaStyle({
-        height: AreaStyleRef.current.height + currentY,
-        width: AreaStyleRef.current.width + currentX,
-        top: AreaStyleRef.current.top,
-        left: AreaStyleRef.current.left,
-      });
-      AreaStyleRef.current = {
-        height: AreaStyleRef.current.height + currentY,
-        width: AreaStyleRef.current.width + currentX,
-        top: AreaStyleRef.current.top,
-        left: AreaStyleRef.current.left,
-      };
-      prevPos.current = {
-        x: event.clientX,
-        y: event.clientY,
-      };
+      getCurrentPos(event)
+        .then((value) => {
+          return currentPosDiminishPrevPos(
+            { x: value.x, y: value.y },
+            { x: prevPos.current.x, y: prevPos.current.y }
+          );
+        })
+        .then((value) => {
+          setAreaStyle({
+            height: AreaStyleRef.current.height + value.y,
+            width: AreaStyleRef.current.width + value.x,
+            top: AreaStyleRef.current.top,
+            left: AreaStyleRef.current.left,
+          });
+          AreaStyleRef.current = {
+            height: AreaStyleRef.current.height + value.y,
+            width: AreaStyleRef.current.width + value.x,
+            top: AreaStyleRef.current.top,
+            left: AreaStyleRef.current.left,
+          };
+          prevPos.current = {
+            x: event.clientX,
+            y: event.clientY,
+          };
+        });
     };
 
     // 鼠标释放
     document.onmouseup = function () {
+      const selectedStoreid = CalculateShapeWithinSelection(
+        item,
+        prevPos,
+        AreaStyleRef
+      );
+      dispatch(changeSelection(selectedStoreid));
       setAreaStyle({
         height: 10,
         width: 10,
@@ -94,6 +115,8 @@ export const CreateMouseCursor = (props: Props) => {
       isDown.current = false;
       dispatch(changeCursorState(false));
     };
+
+    // 销毁回调
     return () => {
       document.onmouseup = null;
       document.onmousedown = null;

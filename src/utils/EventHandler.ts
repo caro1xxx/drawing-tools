@@ -1,4 +1,26 @@
 import React from "react";
+import { useAppSelector } from "../hooks";
+const savePos = (
+  element: React.RefObject<HTMLDivElement> | null,
+  event:
+    | React.MouseEvent<HTMLDivElement, MouseEvent>
+    | React.MouseEvent<HTMLTextAreaElement, MouseEvent>,
+  Pos: React.MutableRefObject<{
+    top: number;
+    left: number;
+    cX: number;
+    cY: number;
+  }>
+) => {
+  if (element?.current?.style.visibility === "visible") {
+    const elementStyle = element?.current;
+    const top = elementStyle?.offsetTop;
+    const left = elementStyle?.offsetLeft;
+    const cY = event.clientY;
+    const cX = event.clientX;
+    Pos.current = { top, left, cX, cY };
+  }
+};
 
 export const drag = (
   type: string,
@@ -19,6 +41,7 @@ export const drag = (
       width: number;
       top: number;
       left: number;
+      storeId: string;
     }>
   >,
   GlobeStyle: {
@@ -26,6 +49,7 @@ export const drag = (
     width: number;
     top: number;
     left: number;
+    storeId: string;
   }
 ) => {
   switch (type) {
@@ -33,14 +57,7 @@ export const drag = (
       event.stopPropagation();
       (element as any).current.style.visibility = "visible";
       isDown.current = true;
-      if (element?.current?.style.visibility === "visible") {
-        const elementStyle = element?.current;
-        const top = elementStyle?.offsetTop;
-        const left = elementStyle?.offsetLeft;
-        const cY = event.clientY;
-        const cX = event.clientX;
-        Pos.current = { top, left, cX, cY };
-      }
+      savePos(element, event, Pos);
       break;
     case "move":
       event.stopPropagation();
@@ -52,6 +69,7 @@ export const drag = (
         width: GlobeStyle.width,
         left: lefts,
         top: tops,
+        storeId: GlobeStyle.storeId,
       });
       break;
     case "up":
@@ -84,6 +102,7 @@ export const zoom = (
       width: number;
       top: number;
       left: number;
+      storeId: string;
     }>
   >,
   GlobeStyle: {
@@ -91,21 +110,14 @@ export const zoom = (
     width: number;
     top: number;
     left: number;
+    storeId: string;
   }
 ) => {
   switch (type) {
     case "down":
       event.stopPropagation();
       isDown.current = true;
-      if (element?.current?.style.visibility === "visible") {
-        // 保存坐标
-        const elementStyle = element?.current;
-        const top = elementStyle?.offsetTop;
-        const left = elementStyle?.offsetLeft;
-        const cY = event.clientY;
-        const cX = event.clientX;
-        Pos.current = { top, left, cX, cY };
-      }
+      savePos(element, event, Pos);
       break;
     case "move":
       event.stopPropagation();
@@ -120,16 +132,9 @@ export const zoom = (
               top: GlobeStyle.top + offsetY,
               width: GlobeStyle.width - offsetX,
               left: GlobeStyle.left + offsetX,
+              storeId: GlobeStyle.storeId,
             });
-            // 再次保存坐标
-            if (element?.current?.style.visibility === "visible") {
-              const elementStyle = element?.current;
-              const top = elementStyle?.offsetTop;
-              const left = elementStyle?.offsetLeft;
-              const cY = event.clientY;
-              const cX = event.clientX;
-              Pos.current = { top, left, cX, cY };
-            }
+            savePos(element, event, Pos);
           }
           break;
         case "LeftBottom":
@@ -141,16 +146,9 @@ export const zoom = (
               top: GlobeStyle.top,
               width: GlobeStyle.width - offsetX,
               left: GlobeStyle.left + offsetX,
+              storeId: GlobeStyle.storeId,
             });
-            // 再次保存坐标
-            if (element?.current?.style.visibility === "visible") {
-              const elementStyle = element?.current;
-              const top = elementStyle?.offsetTop;
-              const left = elementStyle?.offsetLeft;
-              const cY = event.clientY;
-              const cX = event.clientX;
-              Pos.current = { top, left, cX, cY };
-            }
+            savePos(element, event, Pos);
           }
           break;
         case "RightTop":
@@ -162,16 +160,9 @@ export const zoom = (
               top: GlobeStyle.top + offsetY,
               width: GlobeStyle.width + offsetX,
               left: GlobeStyle.left,
+              storeId: GlobeStyle.storeId,
             });
-            // 再次保存坐标
-            if (element?.current?.style.visibility === "visible") {
-              const elementStyle = element?.current;
-              const top = elementStyle?.offsetTop;
-              const left = elementStyle?.offsetLeft;
-              const cY = event.clientY;
-              const cX = event.clientX;
-              Pos.current = { top, left, cX, cY };
-            }
+            savePos(element, event, Pos);
           }
           break;
         case "RightBottom":
@@ -183,16 +174,9 @@ export const zoom = (
               top: GlobeStyle.top,
               width: GlobeStyle.width + offsetX,
               left: GlobeStyle.left,
+              storeId: GlobeStyle.storeId,
             });
-            // 再次保存坐标
-            if (element?.current?.style.visibility === "visible") {
-              const elementStyle = element?.current;
-              const top = elementStyle?.offsetTop;
-              const left = elementStyle?.offsetLeft;
-              const cY = event.clientY;
-              const cX = event.clientX;
-              Pos.current = { top, left, cX, cY };
-            }
+            savePos(element, event, Pos);
           }
           break;
       }

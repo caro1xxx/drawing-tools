@@ -7,7 +7,7 @@ import {
   ZoomLeftBottom,
   ZoomRightTop,
   ZoomRightBottom,
-} from "../style/GobelStyle";
+} from "../style/ShapeStyle";
 import { drag, zoom } from "../utils/EventHandler";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import { changePos } from "../store/ItemSlice";
@@ -70,7 +70,7 @@ export const Line = (props: Props) => {
       ref={SelectElement}
     >
       <LineWapper
-        style={{ borderBottom: `1px ${props.borderColor} dashed` }}
+        style={{ borderBottom: `1px ${props.borderColor} solid` }}
         onMouseDown={(event) => {
           drag(
             "down",

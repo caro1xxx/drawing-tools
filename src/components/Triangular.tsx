@@ -12,11 +12,12 @@ import {
   TriangularLeftEdge,
   TriangularRightEdge,
   TriangulaBottomEdge,
-} from "../style/GobelStyle";
+} from "../style/ShapeStyle";
 import { drag } from "../utils/EventHandler";
 import { changePos } from "../store/ItemSlice";
 type Props = {
   borderColor: string;
+  initColor: string;
 };
 
 export const Triangular = (props: Props) => {

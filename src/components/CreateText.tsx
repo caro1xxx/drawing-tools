@@ -7,12 +7,13 @@ import {
   ZoomLeftBottom,
   ZoomRightTop,
   ZoomRightBottom,
-} from "../style/GobelStyle";
+} from "../style/ShapeStyle";
 import { drag, zoom } from "../utils/EventHandler";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import { changePos } from "../store/ItemSlice";
 type Props = {
   borderColor: string;
+  initColor: string;
 };
 export const CreateText = (props: Props) => {
   const SelectElement = useRef<HTMLDivElement>(null);
@@ -68,7 +69,10 @@ export const CreateText = (props: Props) => {
       ref={SelectElement}
     >
       <Text
-        style={{ border: `1px ${props.borderColor} dashed` }}
+        style={{
+          border: `1px ${props.borderColor} solid`,
+          backgroundColor: props.initColor,
+        }}
         onMouseDown={(event) => {
           drag(
             "down",

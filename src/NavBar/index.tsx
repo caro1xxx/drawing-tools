@@ -4,6 +4,7 @@ import { nanoid } from "nanoid";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { push } from "../store/ItemSlice";
 import { changeNavBarCursor } from "../store/Cursor";
+import { Palette } from "../components/Palette";
 type Props = {};
 
 const Wapper = styled.div`
@@ -11,7 +12,7 @@ const Wapper = styled.div`
   border: 2px solid rgb(239, 239, 239);
   border-radius: 5px;
   top: 10px;
-  bottom: 10px;
+  /* bottom: 10px; */
   position: fixed;
   right: 10px;
   z-index: 100;
@@ -56,6 +57,14 @@ const Cursor = styled.div`
   width: 20px;
   height: 20px;
   margin: 5px 2px;
+`;
+
+const Color = styled.div`
+  background-color: #eee;
+  border: 2px solid #000;
+  height: 15px;
+  width: 20px;
+  margin: 10px 0px;
 `;
 
 export const Index = (props: Props) => {
@@ -151,6 +160,7 @@ export const Index = (props: Props) => {
           </svg>
         )}
       </Cursor>
+      <Palette></Palette>
     </Wapper>
   );
 };

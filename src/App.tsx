@@ -2,8 +2,8 @@ import React from "react";
 import "./App.css";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
-import { Index as NavBar } from "./NavBar/index";
-import { Index as Borad } from "./DrawingBorad/index";
+import { Index as NavBar } from "./navbar/index";
+import { Index as Borad } from "./borad/index";
 function App() {
   return (
     <Provider store={store}>

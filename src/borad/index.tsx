@@ -22,13 +22,24 @@ export const Index = (props: Props) => {
         switch (item.type) {
           case "Rectangle":
             return (
-              <Rectangle borderColor={item.selection} key={item.id}></Rectangle>
+              <Rectangle
+                initColor={item.initColor}
+                borderColor={item.selection}
+                key={item.id}
+              ></Rectangle>
             );
           case "Circle":
-            return <Circle borderColor={item.selection} key={item.id}></Circle>;
+            return (
+              <Circle
+                initColor={item.initColor}
+                borderColor={item.selection}
+                key={item.id}
+              ></Circle>
+            );
           case "Triangular":
             return (
               <Triangular
+                initColor={item.initColor}
                 borderColor={item.selection}
                 key={item.id}
               ></Triangular>
@@ -36,10 +47,16 @@ export const Index = (props: Props) => {
           case "Line":
             return <Line borderColor={item.selection} key={item.id}></Line>;
           case "Text":
-            return <Text borderColor={item.selection} key={item.id}></Text>;
+            return (
+              <Text
+                initColor={item.initColor}
+                borderColor={item.selection}
+                key={item.id}
+              ></Text>
+            );
         }
       })}
-      {cursor.navbarShowCursor ? <Cursor></Cursor> : <div>销毁</div>}
+      {cursor.navbarShowCursor ? <Cursor></Cursor> : <></>}
     </div>
   );
 };

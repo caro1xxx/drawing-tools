@@ -56,7 +56,7 @@ export const Selected = styled.div`
 
 export const Wapper = styled.div`
   visibility: visible;
-  border: 1px #000 dashed;
+  border: 1px #000 solid;
   width: 100%;
   height: 100%;
 `;
@@ -67,7 +67,7 @@ export const Contrl = styled.div`
 
 export const CircleWapper = styled.div`
   visibility: visible;
-  border: 1px #000 dashed;
+  border: 1px #000 solid;
   width: inherit;
   height: inherit;
   margin-right: 10px;
@@ -118,7 +118,7 @@ export const LineWapper = styled.div`
   /* background-color: black; */
   height: 100%;
   width: 100%;
-  border-bottom: 2px #000 dashed;
+  border-bottom: 2px #000 solid;
 `;
 
 export const LineSelected = styled.div`

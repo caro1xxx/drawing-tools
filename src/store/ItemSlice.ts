@@ -7,6 +7,7 @@ interface Item {
   height: number;
   width: number;
   selection: string;
+  initColor: string;
   pos: Array<Array<number>> | null;
 }
 
@@ -29,6 +30,8 @@ const initialState: init = {
   ],
 };
 
+let color = "#fff";
+
 export const currentSlice = createSlice({
   name: "item",
   initialState,
@@ -40,6 +43,7 @@ export const currentSlice = createSlice({
         height: 100,
         width: 100,
         selection: "#000",
+        initColor: color,
         // lefttop,leftbottom.righttop.rightbottom
         pos: [
           // x,y
@@ -71,9 +75,18 @@ export const currentSlice = createSlice({
         }
       });
     },
+    changeColor: (state, action) => {
+      state.value.forEach((item, index) => {
+        if (item.selection === "#056de8") {
+          item.initColor = action.payload;
+        }
+      });
+      color = action.payload;
+    },
   },
 });
 
-export const { push, changeSelection, changePos } = currentSlice.actions;
+export const { push, changeColor, changeSelection, changePos } =
+  currentSlice.actions;
 export const pusItem = (state: RootState) => state.item.value;
 export default currentSlice.reducer;

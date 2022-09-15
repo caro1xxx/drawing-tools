@@ -7,12 +7,13 @@ import {
   ZoomRightTop,
   ZoomRightBottom,
   CircleWapper,
-} from "../style/GobelStyle";
+} from "../style/ShapeStyle";
 import { drag, zoom } from "../utils/EventHandler";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import { changePos } from "../store/ItemSlice";
 type Props = {
   borderColor: string;
+  initColor: string;
 };
 
 export const Circle = (props: Props) => {
@@ -77,7 +78,8 @@ export const Circle = (props: Props) => {
         */
         style={{
           borderRadius: GlobeStyle.height + "px",
-          border: `1px ${props.borderColor} dashed`,
+          border: `1px ${props.borderColor} solid`,
+          backgroundColor: props.initColor,
         }}
         onMouseDown={(event) => {
           drag(

@@ -7,12 +7,13 @@ import {
   ZoomLeftBottom,
   ZoomRightTop,
   ZoomRightBottom,
-} from "../style/GobelStyle";
+} from "../style/ShapeStyle";
 import { drag, zoom } from "../utils/EventHandler";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import { changePos } from "../store/ItemSlice";
 type Props = {
   borderColor: string;
+  initColor: string;
 };
 
 const Rectangle = (props: Props) => {
@@ -71,7 +72,10 @@ const Rectangle = (props: Props) => {
       ref={SelectElement}
     >
       <Wapper
-        style={{ border: `1px ${props.borderColor} dashed` }}
+        style={{
+          border: `1px ${props.borderColor} solid`,
+          backgroundColor: props.initColor,
+        }}
         onMouseDown={(event) => {
           drag(
             "down",

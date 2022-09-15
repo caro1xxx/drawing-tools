@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import { nanoid } from "nanoid";
+import React from "react";
 import { useAppSelector } from "../hooks";
 import Rectangle from "../components/Rectangle";
 import { Circle } from "../components/Circle";

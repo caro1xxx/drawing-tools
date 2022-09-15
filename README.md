@@ -1,46 +1,65 @@
-# Getting Started with Create React App
+## 使用React + Ts编写的在线画图工具![](https://camo.githubusercontent.com/475b49b04214dfa67c1ec8a2837888ae63003feb7b71fd45be30ff360148ad87/68747470733a2f2f696d672e736869656c64732e696f2f6e706d2f762f72656163742e7376673f7374796c653d666c6174)  ![](https://camo.githubusercontent.com/1698104e976c681143eb0841f9675c6f802bb7aa832afc0c7a4e719b1f3cf955/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d417061636865253230322e302d626c75652e737667)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React version `18.2.0`
 
-## Available Scripts
+React redux version 8.0.2
 
-In the project directory, you can run:
+> 如果对您有帮助,欢迎star
 
-### `npm start`
+### 指令
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+> npm install
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+> npm start
 
-### `npm test`
+> npm run build
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 实现
 
-### `npm run build`
+* 矩形
+* 三角形
+* 圆形
+* 线
+* 文本
+* 鼠标选区
+* 更改颜色
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> *ps 由于我没有找到能够实现三角形并且能保持三角形内部是可透明的办法,所以我使用了三个hr拼为三角形,从而形成内部可透明,如果你好的想法可以告诉* email:caro1xxxhv@gmail.com 或者 提issues
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 结构
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```js
+-src
+		- borad //画板
+		- compoents //shape
+		- navbar //工具条
+		- store //redux文件夹
+		- style // 我使用了styled component,所以样式都写在了ts文件内,该文件下的样式都用于shape
+		- utils //一些shape的共有逻辑 & 事件
+```
 
-### `npm run eject`
+### 效果图
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+初始化画板
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![](https://github.com/caro1xxx/drawing-tools/blob/main/src/screenshot/%E6%88%AA%E5%B1%8F2022-09-16%2001.17.57.png?raw=true)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+创建shape
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![](https://github.com/caro1xxx/drawing-tools/blob/main/src/screenshot/%E6%88%AA%E5%B1%8F2022-09-16%2001.19.21.png?raw=true)
 
-## Learn More
+缩放与拖动
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![](https://github.com/caro1xxx/drawing-tools/blob/main/src/screenshot/%E6%88%AA%E5%B1%8F2022-09-16%2001.19.39.png?raw=true)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+选取
+
+![](https://github.com/caro1xxx/drawing-tools/blob/main/src/screenshot/%E6%88%AA%E5%B1%8F2022-09-16%2001.20.05.png?raw=true)
+
+改色
+
+![](https://github.com/caro1xxx/drawing-tools/blob/main/src/screenshot/%E6%88%AA%E5%B1%8F2022-09-16%2001.20.22.png?raw=true)
+
+### Licencing
+
+>  [Apache 2.0 Licence](https://www.apache.org/licenses/LICENSE-2.0)

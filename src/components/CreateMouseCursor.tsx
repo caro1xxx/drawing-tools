@@ -73,18 +73,33 @@ export const CreateMouseCursor = (props: Props) => {
           );
         })
         .then((value) => {
-          setAreaStyle({
-            height: AreaStyleRef.current.height + value.y,
-            width: AreaStyleRef.current.width + value.x,
-            top: AreaStyleRef.current.top,
-            left: AreaStyleRef.current.left,
-          });
-          AreaStyleRef.current = {
-            height: AreaStyleRef.current.height + value.y,
-            width: AreaStyleRef.current.width + value.x,
-            top: AreaStyleRef.current.top,
-            left: AreaStyleRef.current.left,
-          };
+          if (AreaStyleRef.current.top < prevPos.current.y) {
+            setAreaStyle({
+              height: AreaStyleRef.current.height + value.y,
+              width: AreaStyleRef.current.width + value.x,
+              top: AreaStyleRef.current.top,
+              left: AreaStyleRef.current.left,
+            });
+            AreaStyleRef.current = {
+              height: AreaStyleRef.current.height + value.y,
+              width: AreaStyleRef.current.width + value.x,
+              top: AreaStyleRef.current.top,
+              left: AreaStyleRef.current.left,
+            };
+          } else {
+            setAreaStyle({
+              height: AreaStyleRef.current.height + Math.abs(value.y),
+              width: AreaStyleRef.current.width + Math.abs(value.x),
+              top: AreaStyleRef.current.top - Math.abs(value.y),
+              left: AreaStyleRef.current.left - Math.abs(value.x),
+            });
+            AreaStyleRef.current = {
+              height: AreaStyleRef.current.height + Math.abs(value.y),
+              width: AreaStyleRef.current.width + Math.abs(value.x),
+              top: AreaStyleRef.current.top - Math.abs(value.y),
+              left: AreaStyleRef.current.left - Math.abs(value.x),
+            };
+          }
           prevPos.current = {
             x: event.clientX,
             y: event.clientY,

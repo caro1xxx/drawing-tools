@@ -71,7 +71,11 @@ export const currentSlice = createSlice({
       const selectedStoreid = action.payload;
       state.value.forEach((item, index) => {
         if (selectedStoreid.indexOf(item.id) > -1) {
-          item.selection = "#056de8";
+          if (item.selection === "#056de8") {
+            item.selection = "#000e";
+          } else {
+            item.selection = "#056de8";
+          }
         }
       });
     },
